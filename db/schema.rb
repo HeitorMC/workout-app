@@ -14,19 +14,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_193355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "exercise_workouts", id: false, force: :cascade do |t|
+    t.bigint "exercise_id"
+    t.bigint "workout_id"
+    t.index ["exercise_id"], name: "index_exercise_workouts_on_exercise_id"
+    t.index ["workout_id"], name: "index_exercise_workouts_on_workout_id"
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.text "name", null: false
     t.text "description", null: false
     t.integer "intensity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "exercises_workouts", id: false, force: :cascade do |t|
-    t.bigint "exercise_id"
-    t.bigint "workout_id"
-    t.index ["exercise_id"], name: "index_exercises_workouts_on_exercise_id"
-    t.index ["workout_id"], name: "index_exercises_workouts_on_workout_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_193355) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "exercises_workouts", "exercises"
-  add_foreign_key "exercises_workouts", "workouts"
+  add_foreign_key "exercise_workouts", "exercises"
+  add_foreign_key "exercise_workouts", "workouts"
 end
