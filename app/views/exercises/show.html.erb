@@ -1,0 +1,22 @@
+<div id='exercise'>
+<h2>Exercise: <%= @exercise.name%></h2>
+  <table class='table table-bordered align-middle'>
+    <thead class='table-light'>
+      <tr>
+        <th><strong>Description</strong></th>
+        <th><strong>Intensity</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= @exercise.description %></td>
+          <td><%= @exercise.intensity %></td>
+          <td><%= link_to 'Edit this exercise', edit_exercise_path(@exercise), class: 'btn btn-primary' %> <%= button_to 'Destroy this exercise', @exercise, method: :delete, class: 'btn btn-danger' %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class='d-inline-flex'>
+  <%= link_to 'Back to exercises', exercises_path, class:'btn btn-secondary' %>
+</div>

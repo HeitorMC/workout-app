@@ -1,0 +1,27 @@
+<%= form_with(model: exercise) do |form| %>
+  <% if exercise.errors.any? %>
+    <div id='error_explanation' class='alert alert-danger' role='alert'>
+      <h5><%= pluralize(exercise.errors.count, 'error') %> prohibited this exercise from being saved:</h5>
+      <ul>
+        <% exercise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class='mb-3'>
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %> 
+  </div>
+  <div class='mb-3'>
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control'%>
+  </div>
+  <div class='mb-3'>
+    <%= form.label :intensity %>
+    <%= form.text_area :intensity, class: 'form-control', placeholder: 'Must be a number between 0 and 10' %>
+  </div>
+  <div class='actions'>
+    <%= form.submit class: 'btn btn-success min-width-btn' %>
+  </div>
+<% end %>
