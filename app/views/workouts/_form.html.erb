@@ -1,0 +1,25 @@
+<%= form_with(model: workout) do |form| %>
+  <% if workout.errors.any? %>
+    <div id='error_explanation' class='alert alert-danger' role='alert'>
+      <h5><%= pluralize(workout.errors.count, 'error') %> prohibited this exercise from being saved:</h5>
+      <ul>
+        <% workout.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='mb-3'>
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %> 
+  </div>
+
+  <%= form.label :Add_Exercises %>
+  <div class='mb-3'>
+    <%= form.collection_check_boxes :exercise_ids, Exercise.all, :id, :name %>
+  </div>
+  <div class='actions'>
+    <%= form.submit class: 'btn btn-success min-width-btn' %>
+  </div>
+<% end %>

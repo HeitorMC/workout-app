@@ -1,0 +1,10 @@
+<h1>Editing workout</h1>
+
+<%= render 'form', workout: @workout %>
+
+<br>
+
+<div class='.d-inline-flex'>
+  <%= link_to 'Show this exercise', @workout,  class:'btn btn-primary' %> 
+  <%= link_to 'Back to exercises', workouts_path, class:'btn btn-secondary' %>
+</div>
