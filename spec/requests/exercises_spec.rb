@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe '/exercises', type: :request do
   describe 'GET /index' do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-    let(:headers) { { Authorization: sign_in(user) } }
+    let!(:auth) { sign_in(user) }
     let!(:exercise) { create(:exercise) }
 
-    before { get exercises_path, headers: }
+    before { get exercises_path }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -17,10 +17,10 @@ RSpec.describe '/exercises', type: :request do
 
   describe 'GET /show' do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-    let(:headers) { { Authorization: sign_in(user) } }
+    let!(:auth) { sign_in(user) }
     let!(:exercises) { create_list(:exercise, 5) }
 
-    before { get exercises_path(exercises.last.id), headers: }
+    before { get exercises_path(exercises.last.id) }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -29,9 +29,9 @@ RSpec.describe '/exercises', type: :request do
 
   describe 'GET /new' do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-    let(:headers) { { Authorization: sign_in(user) } }
+    let!(:auth) { sign_in(user) }
 
-    before { get new_exercise_url, headers: }
+    before { get new_exercise_url }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -40,10 +40,10 @@ RSpec.describe '/exercises', type: :request do
 
   describe 'GET /edit' do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-    let(:headers) { { Authorization: sign_in(user) } }
+    let!(:auth) { sign_in(user) }
     let!(:exercise) { create_list(:exercise, 5) }
 
-    before { get edit_exercise_url(exercise.last.id), headers: }
+    before { get edit_exercise_url(exercise.last.id) }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -54,14 +54,14 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are valid' do
       let(:valid_attributes) { { exercise: { name: 'Squat', description: 'lorem', intensity: 9 } } }
       let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-      let(:headers) { { Authorization: sign_in(user) } }
+      let!(:auth) { sign_in(user) }
 
       it 'creates a new Exercise' do
-        expect { post exercises_path(valid_attributes), headers: }.to change(Exercise, :count).by(1)
+        expect { post exercises_path(valid_attributes) }.to change(Exercise, :count).by(1)
       end
 
       it 'redirects to the created exercise' do
-        post exercises_path(valid_attributes), headers: headers
+        post exercises_path(valid_attributes)
         expect(response).to redirect_to(exercise_url(Exercise.last))
       end
     end
@@ -69,14 +69,14 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are invalid' do
       let(:invalid_attributes) { { exercise: { name: '', description: '', intensity: 'x' } } }
       let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-      let(:headers) { { Authorization: sign_in(user) } }
+      let!(:auth) { sign_in(user) }
 
       it 'does not create a new Exercise' do
-        expect { post exercises_path(invalid_attributes), headers: }.to change(Exercise, :count).by(0)
+        expect { post exercises_path(invalid_attributes) }.to change(Exercise, :count).by(0)
       end
 
       it 'renders unprocessable entity response' do
-        post exercises_path(invalid_attributes), headers: headers
+        post exercises_path(invalid_attributes)
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -85,11 +85,11 @@ RSpec.describe '/exercises', type: :request do
   describe 'PATCH /update' do
     context 'when the parameters are valid' do
       let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-      let(:headers) { { Authorization: sign_in(user) } }
+      let!(:auth) { sign_in(user) }
       let(:valid_attributes) { { exercise: { name: 'Squat', description: 'lorem', intensity: 9 } } }
       let(:basic_exercise) { create(:exercise) }
 
-      before { patch exercise_path(basic_exercise.id, valid_attributes), headers: }
+      before { patch exercise_path(basic_exercise.id, valid_attributes) }
 
       it 'updates the requested exercise' do
         expect(response).to have_http_status(:found)
@@ -103,10 +103,10 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are invalid' do
       let(:invalid_attributes) { { exercise: { name: '', description: '', intensity: 'x' } } }
       let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-      let(:headers) { { Authorization: sign_in(user) } }
+      let!(:auth) { sign_in(user) }
       let(:basic_exercise) { create(:exercise) }
 
-      before { patch exercise_path(basic_exercise.id, invalid_attributes), headers: }
+      before { patch exercise_path(basic_exercise.id, invalid_attributes) }
 
       it 'renders unprocessable entity response)' do
         expect(response).to have_http_status(:unprocessable_entity)
@@ -116,7 +116,7 @@ RSpec.describe '/exercises', type: :request do
 
   describe 'DELETE /destroy' do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
-    let(:headers) { { Authorization: sign_in(user) } }
+    let!(:auth) { sign_in(user) }
     let!(:basic_exercise) { create(:exercise) }
 
     it 'destroys the requested exercise' do
