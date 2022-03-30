@@ -11,6 +11,7 @@ RSpec.describe Exercise, type: :model do
     it { is_expected.to validate_presence_of(:description) }
 
     it { is_expected.to validate_presence_of(:intensity) }
+    it { is_expected.to validate_numericality_of(:intensity).only_integer }
     it { is_expected.to validate_inclusion_of(:intensity).in_range(0..10) }
   end
 
