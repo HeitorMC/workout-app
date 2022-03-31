@@ -7,6 +7,7 @@ RSpec.describe '/exercises', type: :request do
     before do
       create(:exercise)
       user = create(:user, email: 'John_Doe@test.com', password: 'password')
+      user.confirm
       sign_in(user)
     end
 
@@ -19,6 +20,7 @@ RSpec.describe '/exercises', type: :request do
   describe 'GET /show' do
     before do
       user = create(:user, email: 'John_Doe@test.com', password: 'password')
+      user.confirm
       sign_in(user)
     end
 
@@ -33,6 +35,7 @@ RSpec.describe '/exercises', type: :request do
   describe 'GET /new' do
     before do
       user = create(:user, email: 'John_Doe@test.com', password: 'password')
+      user.confirm
       sign_in(user)
     end
 
@@ -45,6 +48,7 @@ RSpec.describe '/exercises', type: :request do
   describe 'GET /edit' do
     before do
       user = create(:user, email: 'John_Doe@test.com', password: 'password')
+      user.confirm
       sign_in(user)
     end
 
@@ -60,6 +64,7 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are valid' do
       before do
         user = create(:user, email: 'John_Doe@test.com', password: 'password')
+        user.confirm
         sign_in(user)
       end
 
@@ -78,6 +83,7 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are invalid' do
       before do
         user = create(:user, email: 'John_Doe@test.com', password: 'password')
+        user.confirm
         sign_in(user)
       end
 
@@ -98,6 +104,7 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are valid' do
       before do
         user = create(:user, email: 'John_Doe@test.com', password: 'password')
+        user.confirm
         sign_in(user)
       end
 
@@ -118,6 +125,7 @@ RSpec.describe '/exercises', type: :request do
     context 'when the parameters are invalid' do
       before do
         user = create(:user, email: 'John_Doe@test.com', password: 'password')
+        user.confirm
         sign_in(user)
       end
 
@@ -134,6 +142,7 @@ RSpec.describe '/exercises', type: :request do
   describe 'DELETE /destroy' do
     before do
       user = create(:user, email: 'John_Doe@test.com', password: 'password')
+      user.confirm
       sign_in(user)
     end
 
