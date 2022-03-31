@@ -20,7 +20,7 @@ RSpec.describe '/exercises', type: :request do
     let!(:auth) { sign_in(user) }
     let!(:exercises) { create_list(:exercise, 5) }
 
-    before { get exercises_path(exercises.last.id) }
+    before { get exercise_path(exercises.last) }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -31,7 +31,7 @@ RSpec.describe '/exercises', type: :request do
     let(:user) { create(:user, email: 'John_Doe@test.com', password: 'password') }
     let!(:auth) { sign_in(user) }
 
-    before { get new_exercise_url }
+    before { get new_exercise_path }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -43,7 +43,7 @@ RSpec.describe '/exercises', type: :request do
     let!(:auth) { sign_in(user) }
     let!(:exercise) { create_list(:exercise, 5) }
 
-    before { get edit_exercise_url(exercise.last.id) }
+    before { get edit_exercise_path(exercise.last) }
 
     it 'renders a successful response' do
       expect(response).to have_http_status(:success)
@@ -62,7 +62,7 @@ RSpec.describe '/exercises', type: :request do
 
       it 'redirects to the created exercise' do
         post exercises_path(valid_attributes)
-        expect(response).to redirect_to(exercise_url(Exercise.last))
+        expect(response).to redirect_to(exercise_path(Exercise.last))
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe '/exercises', type: :request do
       end
 
       it 'redirects to the exercise' do
-        expect(response).to redirect_to(exercise_url(basic_exercise.id))
+        expect(response).to redirect_to(exercise_path(basic_exercise.id))
       end
     end
 
@@ -125,7 +125,7 @@ RSpec.describe '/exercises', type: :request do
 
     it 'redirects to the exercises list' do
       delete exercise_path(basic_exercise.id), headers: headers
-      expect(response).to redirect_to(exercises_url)
+      expect(response).to redirect_to(exercises_path)
     end
   end
 end
