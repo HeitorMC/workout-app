@@ -15,17 +15,17 @@
     <% if user_signed_in? %>
       <div class='d-flex justify-content-between'>
         <div class='d-flex justify-content-end'>
-          <a href='/exercises/new'>Create Exercise</a> |
-          <a href='/workouts/new'>Create Workout</a> |
-          <a href='/exercises'>Show Exercises</a> |
-          <a href='/workouts'>Show Workouts</a>
+          <%= link_to 'Create an Exercise', new_exercise_path	 %> |
+          <%= link_to 'Create a Workout', new_workout_path %> |
+          <%= link_to 'Show Exercises', exercises_path%> |
+          <%= link_to 'Show Workout', workouts_path%> 
         </div>
         <div class='d-flex justify-content-end'>
           <%= button_to 'Sign out', destroy_user_session_path, method: :delete %>
         </div>
       </div>
     <% else %>
-      <a href='/users/sign_in'>Sign In</a>
+      <%= button_to 'Sign in',  new_user_session_path, method: :get %>
     <% end %>
     <%= yield %>
     <p style ='color: green'class='notice'><%= notice %></p>
