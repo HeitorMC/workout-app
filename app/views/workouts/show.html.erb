@@ -1,0 +1,28 @@
+<div id='workout'>
+  <h2>Workout details:</h2>
+  <h3><%= @workout.name %> </h3>
+  <table class='table table-bordered align-middle'>
+    <thead class='table-light'>
+      <tr>
+        <th><strong>Exercise name</strong></th>
+        <th><strong>Description</strong></th>
+        <th><strong>intensity</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @workout.exercises.each do |exercise| %>
+          <tr>
+            <td><%= exercise.name %></td>
+            <td><%= exercise.description %></td>
+            <td><%= exercise.intensity %></td>
+          </tr>
+        <% end %>
+    </tbody>
+ </table>
+</div>
+
+<div class='d-inline-flex'>
+  <%= link_to 'Edit this workout', edit_workout_path(@workout), class: 'btn btn-primary' %>
+  <%= button_to 'Destroy this workout', @workout, method: :delete, class: 'btn btn-danger' %>
+  <%= link_to 'Back to workouts', workouts_path, class: 'btn btn-secondary' %>
+</div>

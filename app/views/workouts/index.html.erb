@@ -1,0 +1,22 @@
+<h1>Workouts</h1>
+
+<div id='workouts'>
+  <table class='table table-bordered'>
+    <thead class='table-light'>
+      <tr>
+        <th>Name</th>
+        <th>Exercises</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @workouts.each do |workout| %>
+        <tr>
+          <td><%= workout.name %></td>
+          <td><%= workout.exercises.count %></td>
+          <td><%= link_to 'Show this workout', workout, class:'btn btn-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to 'New workout', new_workout_path, class:'btn btn-primary' %>
