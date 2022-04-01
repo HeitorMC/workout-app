@@ -24,6 +24,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'letter_opener'
   gem 'rspec-rails', '~> 5.1'
   gem 'rubocop', '~> 1.25', require: false
   gem 'rubocop-performance', '~> 1.13', require: false
